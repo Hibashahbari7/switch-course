@@ -1,4 +1,4 @@
-THRESHOLD = 15
+INPUT_LENGTH  = 15
 
 
 def print_menu():
@@ -25,44 +25,39 @@ def is_digit(inp: str):
 
 
 def is_long(inp: str):
-    return len(inp) > THRESHOLD
+    return len(inp) > INPUT_LENGTH
 
 
 def is_empty(inp: str):
     return inp == ""
 
 
+
+operations = {
+    1: is_palindrome,
+    2: is_lower,
+    3: is_digit,
+    4: is_long,
+    5: is_empty
+}
+
+
 def main():
     while True:
         print_menu()
         choice = input("Please enter the number of the operation you choose: ")
-
         if not choice.isdigit():
             print("Invalid choice, please enter a number between 1-6.\n")
             continue
-
         choice = int(choice)
-
         if choice == 6:
             print("\nExit successfully")
-            break
-
-        inp = input("Enter an input: ")
-
-        if choice == 1:
-            result = is_palindrome(inp)
-        elif choice == 2:
-            result = is_lower(inp)
-        elif choice == 3:
-            result = is_digit(inp)
-        elif choice == 4:
-            result = is_long(inp)
-        elif choice == 5:
-            result = is_empty(inp)
-        else:
-            print("Invalid option.\n")
+            break          
+        if choice not in operations:
+            print("Invalid choice.\n")
             continue
-
+        inp = input("Enter an input: ")
+        result = operations[choice](inp)
         print(f"The answer is: {result}\n")
 
 
